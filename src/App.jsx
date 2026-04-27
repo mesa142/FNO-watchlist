@@ -112,10 +112,12 @@ export default function App() {
               ]);
 
               const tag = classifyMoneyness(strike, atm);
+              const ceITM = strike < atm;
+              const peITM = strike > atm;
               return {
                 strike,
                 tag,
-                deliveryRisk: isDeliveryRisk(tag === 'ITM', optionExpiry),
+                deliveryRisk: isDeliveryRisk(ceITM || peITM, optionExpiry),
                 ce: ce
                   ? {
                       ltp: quotes.quotes?.[ce.symbol]?.ltp,
